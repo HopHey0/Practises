@@ -7,7 +7,7 @@
 ## Задача 1
 
 Вывести отсортированный в алфавитном порядке список имен пользователей в файле passwd (вам понадобится grep).
-Решение:
+## Решение:
 ![image](https://github.com/user-attachments/assets/5ab203c4-7339-4350-abc9-524648e35728)
 
 
@@ -23,8 +23,8 @@
 139 hip
 138 manet
 ```
-Решение:
-![Uploading image.png…]()
+## Решение:
+![image](https://github.com/user-attachments/assets/dc5a21be-07e3-4ef3-92bd-8c65bd08a7e7)
 
 ## Задача 3
 
