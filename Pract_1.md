@@ -23,6 +23,8 @@
 139 hip
 138 manet
 ```
+Решение:
+![Uploading image.png…]()
 
 ## Задача 3
 
