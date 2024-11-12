@@ -1,4 +1,4 @@
-# Практическое занятие №1. Введение, основы работы в командной строке
+![image](https://github.com/user-attachments/assets/42412fe9-e49e-4002-b74e-82d52120b287)# Практическое занятие №1. Введение, основы работы в командной строке
 
 П.Н. Советов, РТУ МИРЭА
 
@@ -95,7 +95,7 @@ cp "$1" "$BIN_DIR/"
 echo "Adding $BIN_DIR to PATH..."
 export PATH="$BIN_DIR:$PATH"
 
-echo "Now you can run the program by just typing its name in the terminal."
+echo "Теперь вы можете запустить команду"
 ```
 ![image](https://github.com/user-attachments/assets/888931f8-2c52-4e1b-97e8-0b9756a04b68)
 
@@ -193,10 +193,33 @@ echo "Архив '$archive_name' успешно создан."
 ## Задача 9
 
 Написать программу, которая заменяет в файле последовательности из 4 пробелов на символ табуляции. Входной и выходной файлы задаются аргументами.
+##Решение:
+```Bash
+#!/bin/bash
+
+input_file="$1"
+output_file="$2"
+
+sed 's/    /\t/g' "$input_file" > "$output_file"
+echo "Программа завершена. Выходной файл: $output_file"
+```
+![image](https://github.com/user-attachments/assets/5a84e6f3-5433-4148-a6c8-9eb6287199ba)
+
 
 ## Задача 10
 
 Написать программу, которая выводит названия всех пустых текстовых файлов в указанной директории. Директория передается в программу параметром. 
+##Решение:
+```Bash
+#!/bin/bash
+
+directory="$1"
+
+find "$directory" -type f -size 0 -name "*.txt" -print
+
+```
+![image](https://github.com/user-attachments/assets/314f4230-840d-4a82-b023-4d0cc300d6d9)
+
 
 ## Полезные ссылки
 
