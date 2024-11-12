@@ -41,6 +41,8 @@
 
 ## Решение:
 ```Bash
+#!/bin/bash
+
 text="$1"
 length=${#text}
 
@@ -67,6 +69,7 @@ h hello include int main n printf return stdio void world
 ## Решение:
 ![image](https://github.com/user-attachments/assets/959c9fcf-57e3-4b0c-bc3e-a32b6d1c5527)
 ```Bash
+#!/bin/bash
 file=$1
 grep -o '\b[_a-zA-Z][_a-zA-Z0-9]*\b' "$file" | sort | uniq
 ```
@@ -84,6 +87,7 @@ grep -o '\b[_a-zA-Z][_a-zA-Z0-9]*\b' "$file" | sort | uniq
 В результате для banner задаются правильные права доступа и сам banner копируется в /usr/local/bin.
 ##Решение:
 ```Bash
+#!/bin/bash
 BIN_DIR="C:/Conf_work"
 
 cp "$1" "$BIN_DIR/"
@@ -101,6 +105,7 @@ echo "Now you can run the program by just typing its name in the terminal."
 Написать программу для проверки наличия комментария в первой строке файлов с расширением c, js и py.
 ##Решение:
 ```Bash
+#!/bin/bash
 check_comment() {
     file=$1
     extension="${file##*.}"
@@ -147,10 +152,43 @@ check_comment "$1"
 ## Задача 7
 
 Написать программу для нахождения файлов-дубликатов (имеющих 1 или более копий содержимого) по заданному пути (и подкаталогам).
+##Решение:
+```Bash
+#!/bin/bash
+directory="$1"
+declare -A file_hashes
+
+find "$directory" -type f | while read -r file; do
+    hash=$(sha256sum "$file" | awk '{ print $1 }')
+    if [[ -n "${file_hashes[$hash]}" ]]; then
+        echo "Дубликат найден: $file и ${file_hashes[$hash]}"
+    else
+        file_hashes["$hash"]="$file"
+    fi
+done
+```
+![image](https://github.com/user-attachments/assets/f366bb03-c5d3-401f-a804-d9b7ee8bde9b)
 
 ## Задача 8
 
 Написать программу, которая находит все файлы в данном каталоге с расширением, указанным в качестве аргумента и архивирует все эти файлы в архив tar.
+##Решение:
+```Bash
+#!/bin/bash
+directory="$1"
+extension="$2"
+
+shopt -s nullglob
+files=("$directory"/*."$extension")
+
+archive_name="${directory%/}.tar"
+tar -cvf "$archive_name" -C "$directory" $(basename -a "${files[@]}")
+
+echo "Архив '$archive_name' успешно создан."
+
+```
+![image](https://github.com/user-attachments/assets/26ffc6f3-f0f4-4fc0-81c1-076e0df8e8cb)
+
 
 ## Задача 9
 
