@@ -119,7 +119,47 @@ Coder2 добавляет в readme в раздел об авторах свою
   
       first commit
 ```
+##Решение
+```
+cd ~/Desktop/Pract_4
+git init --bare ~/server
+git remote add server ~/server
+git push server master
+git remote -v
 
+cd ~/Desktop
+git clone server clone
+cd clone
+git config user.name "coder2"
+git config user.email "example2@meil.com"
+echo "Sample" > readme.md
+git add readme.md
+git commit -m "Add readmi file"
+git push origin master
+
+cd ~/Desktop/Pract_4
+git pull server master
+echo -e "Authors: coder1" >> readme.md
+git add readme.md
+git commit -m "Add author in readme file"
+git push server master
+
+cd ~/Desktop/clone
+git pull origin master
+echo "coder2" >> readme.md
+git add readme.md
+git commit -m "Another author to readme file"
+git push origin master
+
+git log --oneline --graph --all
+```
+Логи:
+
+```
+* 49cbcfe (HEAD -> master, origin/master) Another author to readme file
+* 73d4a1e Add readmi file
+
+```
 ## Задача 4
 
 Написать программу на Питоне (или другом ЯП), которая выводит список содержимого всех объектов репозитория. Воспользоваться командой "git cat-file -p". Идеальное решение – не использовать иных сторонних команд и библиотек для работы с git.
