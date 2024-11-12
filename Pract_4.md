@@ -10,7 +10,7 @@
 
 ## Решение
 ![image](https://github.com/user-attachments/assets/655a80a7-3a8b-4142-bc33-714bf821e736)
-```
+```git
 git commit
 git tag in
 git branch first
@@ -38,7 +38,7 @@ git checkout in!
 
 Создать локальный git-репозиторий. Задать свои имя и почту (далее – coder1). Разместить файл prog.py с какими-нибудь данными. Прислать в текстовом виде диалог с git.
 ## Решение
-```
+```git
 Aorus@HOME-PC MINGW64 ~/Desktop/Pract_4 (master)
 $ git init
 Initialized empty Git repository in C:/Users/Aorus/Desktop/Pract_4/.git/
@@ -163,6 +163,32 @@ git log --oneline --graph --all
 ## Задача 4
 
 Написать программу на Питоне (или другом ЯП), которая выводит список содержимого всех объектов репозитория. Воспользоваться командой "git cat-file -p". Идеальное решение – не использовать иных сторонних команд и библиотек для работы с git.
+
+##Решение
+```Python
+import subprocess
+
+def retrieve_git_data():
+    try:
+        commits_list = subprocess.check_output(['git', 'rev-list', '--all']).decode('utf-8').splitlines()
+
+        for commit_hash in commits_list:
+            print(f'Коммит {commit_hash}:')
+            try:
+                commit_content = subprocess.check_output(['git', 'cat-file', '-p', commit_hash]).decode('utf-8')
+                print(commit_content)
+            except subprocess.CalledProcessError as error:
+                print(f'Не удалось получить данные для {commit_hash}: {error}')
+            print('-' * 40)
+    except subprocess.CalledProcessError as error:
+        print(f'Ошибка при извлечении списка коммитов: {error}')
+
+if __name__ == '__main__':
+    retrieve_git_data()
+```
+![image](https://github.com/user-attachments/assets/e8ed9d79-72e9-4f86-b3db-f9084ab351d0)
+
+
 
 ## Полезные ссылки
 
