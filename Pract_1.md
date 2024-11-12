@@ -39,6 +39,22 @@
 
 Перед отправкой решения проверьте его в ShellCheck на предупреждения.
 
+## Решение:
+```Bash
+text="$1"
+length=${#text}
+
+banner_width=$((length + 4))
+
+border=$(printf "%-${banner_width}s" "+" | tr ' ' '-')
+
+echo "$border"
+echo "| $text |"
+echo "$border"
+```
+![image](https://github.com/user-attachments/assets/7b02252d-6671-4446-b0d4-e9b4ab3fbeda)
+
+
 ## Задача 4
 
 Написать программу для вывода всех идентификаторов (по правилам C/C++ или Java) в файле (без повторений).
@@ -47,6 +63,12 @@
 
 ```
 h hello include int main n printf return stdio void world
+```
+## Решение:
+![image](https://github.com/user-attachments/assets/959c9fcf-57e3-4b0c-bc3e-a32b6d1c5527)
+```Bash
+file=$1
+grep -o '\b[_a-zA-Z][_a-zA-Z0-9]*\b' "$file" | sort | uniq
 ```
 
 ## Задача 5
@@ -60,10 +82,67 @@ h hello include int main n printf return stdio void world
 ```
 
 В результате для banner задаются правильные права доступа и сам banner копируется в /usr/local/bin.
+##Решение:
+```Bash
+BIN_DIR="C:/Conf_work"
+
+cp "$1" "$BIN_DIR/"
+
+echo "Adding $BIN_DIR to PATH..."
+export PATH="$BIN_DIR:$PATH"
+
+echo "Now you can run the program by just typing its name in the terminal."
+```
+![image](https://github.com/user-attachments/assets/888931f8-2c52-4e1b-97e8-0b9756a04b68)
+
 
 ## Задача 6
 
 Написать программу для проверки наличия комментария в первой строке файлов с расширением c, js и py.
+##Решение:
+```Bash
+check_comment() {
+    file=$1
+    extension="${file##*.}"
+    
+    if [[ "$extension" == "c" || "$extension" == "js" || "$extension" == "py" ]]; then
+        first_line=$(head -n 1 "$file")
+        
+        case $extension in
+            c)
+                if [[ "$first_line" =~ ^\s*// ]]; then
+                    echo "Файл $file: комментарий в первой строке."
+                else
+                    echo "Файл $file: нет комментария в первой строке."
+                fi
+                ;;
+            js)
+                if [[ "$first_line" =~ ^\s*// ]]; then
+                    echo "Файл $file: комментарий в первой строке."
+                else
+                    echo "Файл $file: нет комментария в первой строке."
+                fi
+                ;;
+            py)
+                if [[ "$first_line" =~ ^\s*# ]]; then
+                    echo "Файл $file: комментарий в первой строке."
+                else
+                    echo "Файл $file: нет комментария в первой строке."
+                fi
+                ;;
+            *)
+                # Если файл не с нужным расширением
+                echo "Файл $file не имеет нужного расширения (c, js, py)."
+                ;;
+        esac
+    else
+        echo "Файл $file не имеет нужного расширения (c, js, py)."
+    fi
+}
+check_comment "$1"
+```
+![image](https://github.com/user-attachments/assets/020ed9bf-72ec-4006-8794-dcfa10356357)
+
 
 ## Задача 7
 
