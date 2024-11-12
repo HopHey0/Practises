@@ -37,6 +37,41 @@ git checkout in!
 ## Задача 2
 
 Создать локальный git-репозиторий. Задать свои имя и почту (далее – coder1). Разместить файл prog.py с какими-нибудь данными. Прислать в текстовом виде диалог с git.
+## Решение
+```
+Aorus@HOME-PC MINGW64 ~/Desktop/Pract_4 (master)
+$ git init
+Initialized empty Git repository in C:/Users/Aorus/Desktop/Pract_4/.git/
+
+Aorus@HOME-PC MINGW64 ~/Desktop/Pract_4 (master)
+$ git config user.name "coder1"
+
+Aorus@HOME-PC MINGW64 ~/Desktop/Pract_4 (master)
+$ git config user.email "example@mail.com"
+
+Aorus@HOME-PC MINGW64 ~/Desktop/Pract_4 (master)
+$ echo "print('Holy cow')" >> prog.py
+
+Aorus@HOME-PC MINGW64 ~/Desktop/Pract_4 (master)
+$ git add prog.py
+
+Aorus@HOME-PC MINGW64 ~/Desktop
+git commit
+
+[master (root-commit) e21e93f] First commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 prog.py
+
+Aorus@HOME-PC MINGW64 ~/Desktop/Pract_4 (master)
+$ git log
+commit e21e93f80b4d8a6dde8369919dfbdb937fcd62e0 (HEAD -> master)
+Author: coder1 <example@mail.com>
+Date:   Wed Nov 13 00:15:30 2024 +0300
+
+    First commit
+
+
+```
 
 ## Задача 3
 
