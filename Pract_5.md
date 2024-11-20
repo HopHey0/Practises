@@ -109,6 +109,49 @@ def factorial(n):
 
 Приведите результаты из задач 1 и 2 для виртуальной машины JVM (Java) или .Net (C#).
 
+## Решение:
+### Задача 1(Java):
+```Java
+public static int calculate(int x) {
+        return x * 10 + 42;
+    }
+```
+```JVM
+  public static int calculate(int);
+       0: iload_0
+       1: bipush        10
+       3: imul
+       4: bipush        42
+       6: iadd
+       7: ireturn
+```
+### Задача 2(Java):
+```Java
+public static int factorial(int n){
+    int r = 1;
+    while (n > 1){
+        r *= n;
+        n -= 1;
+    }
+    return r;
+}
+```
+```JVM
+public static int factorial(int);
+       0: iconst_1
+       1: istore_1
+       2: iload_0
+       3: iconst_1
+       4: if_icmple     
+       7: iload_1
+       8: iload_0
+       9: imul
+      10: istore_1
+      11: iinc          
+      14: goto         
+      17: iload_1
+      18: ireturn
+```
 ## Задача 4
 
 Работа с qemu. Скачать и установить ISO-образ Alpine Linux для виртуальных машин с официального сайта.
