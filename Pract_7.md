@@ -76,3 +76,7 @@ https://pdf.plantuml.net/PlantUML_Language_Reference_Guide_ru.pdf
 https://mermaid.js.org/
 
 https://mermaid.live/edit
+
+https://mermaid.js.org/
+
+https://mermaid.live/edit
