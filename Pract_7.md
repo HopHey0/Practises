@@ -6,7 +6,7 @@
 
 Реализовать с помощью математического языка LaTeX нижеприведенную формулу:
 
-![](images/formula.png)
+![image](https://github.com/user-attachments/assets/109314c9-6a07-4f35-8d9b-bc4efdd2e034)
 
 Прислать код на LaTeX и картинку-результат, где, помимо формулы, будет указано ФИО студента.
 
@@ -17,7 +17,7 @@
 
 Используйте [онлайн-редактор](https://plantuml-editor.kkeisuke.com/).
 
-![](images/plantuml.png)
+![image](https://github.com/user-attachments/assets/aa052379-cb9c-4f8a-a32e-33f349954cba)
 
 ## Задача 3
 
