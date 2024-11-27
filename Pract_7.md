@@ -49,6 +49,46 @@
 
 ![image](https://github.com/user-attachments/assets/aa052379-cb9c-4f8a-a32e-33f349954cba)
 
+## Решение:
+```PlantUML
+# PlantUML Editor
+
+@startuml
+actor "Студент Ситнов М.В." as Student
+database "Piazza" as Piazza
+actor "Преподаватель" as Teacher
+
+Teacher -> Piazza: Публикация задачи
+activate Piazza
+Piazza --> Teacher: Задача опубликована
+deactivate Piazza
+
+
+Student --> Piazza: Поиск задач
+activate Piazza
+Piazza --> Student: Получение задачи
+deactivate Piazza
+
+Student -> Piazza: Публикация решения
+activate Piazza
+Piazza --> Student: Решение опубликовано
+deactivate Piazza
+
+Teacher -> Piazza: Поиск решений
+activate Piazza
+Piazza --> Teacher: Решение найдено
+Teacher -> Piazza: Публикация оценки
+Piazza --> Teacher: Оценка опубликована
+deactivate Piazza
+
+Student -> Piazza: Проверка оценки
+Piazza --> Student: Оценка получена
+
+@enduml
+```
+![image](https://github.com/user-attachments/assets/e90f5281-8370-4968-ae63-edd5883e92de)
+
+
 ## Задача 3
 
 Описать какой-либо алгоритм сортировки с помощью noweb. Язык реализации не важен. Прислать nw-файл, pdf-файл и файл с исходным кодом. В начале pdf-файла должно быть указано ваше авторство. Добавьте, например, где-то в своем тексте сноску: \footnote{Разработал Фамилия И.О.}
