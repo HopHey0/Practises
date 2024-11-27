@@ -10,6 +10,36 @@
 
 Прислать код на LaTeX и картинку-результат, где, помимо формулы, будет указано ФИО студента.
 
+## Решение:
+
+```LaTeX
+\documentclass{article}
+\usepackage{amsmath} 
+
+\title{Task_1}
+\author{mishavsit }
+\date{November 2024}
+
+\begin{document}
+
+\[
+\int\limits_{x}^{\infty} \frac{dt}{t(t^2-1)\log t} = 
+\int\limits_{x}^{\infty} \frac{1}{t \log t} 
+\left( \sum_m t^{-2m} \right) dt = 
+\sum_m \int\limits_{x}^{\infty} \frac{t^{-2m}}{t\log t} \, dt 
+\overset{(u = t^{-2m})}{=} 
+-\sum_m \operatorname{li}(x^{-2m})
+\]
+
+\bigskip
+
+\textbf{Name:} Student Sitnov M.V.
+
+\end{document}
+
+```
+![image](https://github.com/user-attachments/assets/fbcba8f7-4d04-405a-bc9a-a12bf813d2c7)
+
 ## Задача 2
 
 На языке PlantUML реализовать диаграмму на рисунке ниже. Прислать текст на PlantUML и картинку-результат, в которой ФИО студента заменены Вашими собственными.
