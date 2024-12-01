@@ -62,6 +62,37 @@ mysticism
 drama_poetry
 mathematics
 ```
+## Решение
+```Python
+import json
+
+def parse_civgraph(civgraph_file):
+    with open(civgraph_file, 'r') as file:
+        data = json.load(file)
+
+    return data
+
+
+def generate_makefile(data, output_file):
+    with open(output_file, 'w') as file:
+        for target, dependencies in data.items():
+            dep_str = " ".join(dependencies) if dependencies else ""
+            file.write(f"{target}: {dep_str}\n")
+            file.write(f"\t@echo {target}\n\n")
+
+def main():
+    civgraph_file = "civgraph.json" 
+    output_file = "Makefile"
+
+    data = parse_civgraph(civgraph_file)
+
+    generate_makefile(data, output_file)
+    print(f"{output_file} был сгенерирован")
+
+if __name__ == "__main__":
+    main()
+```
+![image](https://github.com/user-attachments/assets/10aca955-c68b-45a7-a595-69b80e34796c)
 
 ## Задача 2
 
