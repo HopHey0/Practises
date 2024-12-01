@@ -1,4 +1,4 @@
-# Практическое задание №6. Системы автоматизации сборки
+![image](https://github.com/user-attachments/assets/83aa9fa5-d569-4384-8164-7e694e648c45)# Практическое задание №6. Системы автоматизации сборки
 
 П.Н. Советов, РТУ МИРЭА
 
@@ -98,6 +98,67 @@ if __name__ == "__main__":
 
 Реализовать вариант трансляции, при котором повторный запуск make не выводит для civgraph на экран уже выполненные "задачи".
 
+## Решение
+```Python
+import json
+import os
+
+TASKS_FILE = "tasks.txt"
+
+def load_tasks():
+    if os.path.exists(TASKS_FILE):
+        with open(TASKS_FILE, 'r') as f:
+            return set(f.read().splitlines())
+    return set()
+
+def save_tasks(tasks):
+    with open(TASKS_FILE, 'w') as f:
+        f.write('\n'.join(tasks))
+
+def load_dependency_graph(filename):
+    try:
+        with open(filename, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Ошибка при загрузке файла {filename}: {e}")
+        return {}
+
+def generate_makefile(dependency_graph, target_task):
+    visited_tasks = set()
+    tasks_to_process = []
+    completed_tasks = load_tasks()
+
+    def process_task(task):
+        if task in visited_tasks or task in completed_tasks:
+            return
+        visited_tasks.add(task)
+        for dependency in dependency_graph.get(task, []):
+            process_task(dependency)
+        tasks_to_process.append(task)
+
+    process_task(target_task)
+
+    if not tasks_to_process:
+        print("Эти задачи уже были выполнены.")
+    else:
+        for task in tasks_to_process:
+            if task not in completed_tasks:
+                print(f"{task}")
+                completed_tasks.add(task)
+
+        save_tasks(completed_tasks)
+
+
+if __name__ == '__main__':
+    dependency_graph = load_dependency_graph('civgraph.json')
+
+    if not dependency_graph:
+        print("Не удалось загрузить граф зависимостей. Программа завершена.")
+    else:
+        target_task = input('>make ')
+        generate_makefile(dependency_graph, target_task)
+```
+![image](https://github.com/user-attachments/assets/965d737d-5955-48b9-9916-6b3dffb69196)
 
 ## Задача 3
 
