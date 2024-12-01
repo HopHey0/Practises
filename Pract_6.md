@@ -164,6 +164,83 @@ if __name__ == '__main__':
 
 Добавить цель clean, не забыв и про "животное".
 
+## Решение 
+```Python
+import json
+import os
+
+TASKS_FILE = "completed_tasks.txt"
+
+def load_tasks():
+    if os.path.exists(TASKS_FILE):
+        with open(TASKS_FILE, 'r') as f:
+            return set(f.read().splitlines())
+    return set()
+
+def save_tasks(tasks):
+    with open(TASKS_FILE, 'w') as f:
+        f.write('\n'.join(tasks))
+
+def load_dependency_graph(filename):
+    try:
+        with open(filename, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Ошибка при загрузке файла {filename}: {e}")
+        return {}
+
+def generate_makefile(dependency_graph, target_task):
+    visited_tasks = set()
+    tasks_to_process = []
+    completed_tasks = load_tasks()
+
+    def process_task(task):
+        if task in visited_tasks or task in completed_tasks:
+            return
+        visited_tasks.add(task)
+        for dependency in dependency_graph.get(task, []):
+            process_task(dependency)
+        tasks_to_process.append(task)
+
+    process_task(target_task)
+
+    if not tasks_to_process:
+        print("Эти задачи уже были выполнены.")
+    else:
+        for task in tasks_to_process:
+            if task not in completed_tasks:
+                print(f"{task}")
+                completed_tasks.add(task)
+
+        save_tasks(completed_tasks)
+
+def clean():
+    if os.path.exists(TASKS_FILE):
+        os.remove(TASKS_FILE)
+        print(f"Файл  {TASKS_FILE} удален.")
+    else:
+        print("Нечего очищать.")
+
+
+if __name__ == '__main__':
+    # Загружаем граф зависимостей из файла
+    dependency_graph = load_dependency_graph('civgraph.json')
+
+    if not dependency_graph:
+        print("Не удалось загрузить граф зависимостей.")
+    else:
+        action = input('make/clean: ')
+
+        if action == 'make':
+            target_task = input('>make ')
+            generate_makefile(dependency_graph, target_task)
+        elif action == 'clean':
+            clean()
+        else:
+            print("Неизвестное действие.")
+```
+![image](https://github.com/user-attachments/assets/4d6d454d-3120-4132-91dd-955c6a50bc78)
+
 ## Задача 4
 
 Написать makefile для следующего скрипта сборки:
