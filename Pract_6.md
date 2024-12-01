@@ -256,6 +256,32 @@ dir /B > files.lst
 В makefile должны быть, как минимум, следующие задачи: all, clean, archive.
 Обязательно покажите на примере, что уже сделанные подзадачи у вас не перестраиваются.
 
+## Решение
+```Make
+CC = gcc
+
+CFLAGS = -o prog
+
+SRC = prog.c data.c
+
+all: prog archive
+
+prog: $(SRC)
+	$(CC) $(SRC) $(CFLAGS)
+
+files.lst:
+	dir /B > files.lst
+
+archive: files.lst
+	7z a distr.zip *.*
+
+clean:
+	del prog.exe files.lst distr.zip
+```
+![image](https://github.com/user-attachments/assets/2697c7cf-e80f-42c1-b959-90f2c739d763)
+![image](https://github.com/user-attachments/assets/ec520e44-74e3-474a-adf0-6ee6b4b6ff17)
+
+
 ## Полезные ссылки
 
 Описание (рус.): https://unix1.jinr.ru/faq_guide/programming/make/make.html
