@@ -148,7 +148,8 @@ if __name__ == "__main__":
 
 ```
 Файлы:
-
+bubble_sort.nw
+[bubble_sort.nw link](https://github.com/user/repo/Practises//bubble_sort.nw)
 
 
 ## Задача 4
