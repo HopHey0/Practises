@@ -1,0 +1,49 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{listings}  % Подключение пакета для кода
+
+\begin{document}
+
+\chapter{Алгоритм сортировки пузырьком}
+
+Этот документ описывает алгоритм сортировки пузырьком с использованием noweb.
+
+\section{Описание алгоритма}
+
+Алгоритм сортировки пузырьком многократно проходит через список, сравнивая соседние элементы и меняя их местами, если они стоят в неправильном порядке.
+
+\subsection{Шаги алгоритма}
+
+1. Проходим по списку.
+2. Сравниваем соседние элементы.
+3. Меняем их местами, если они стоят в неправильном порядке.
+4. Повторяем процесс, пока список не станет отсортированным.
+
+\section{Исходный код}
+
+\subsection{Алгоритм сортировки пузырьком}
+
+\begin{lstlisting}[language=Python]
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+if __name__ == "__main__":
+    array = [64, 34, 25, 12, 22, 11, 90]
+    print("Original array:", array)
+    sorted_array = bubble_sort(array)
+    print("Sorted array:", sorted_array)
+\end{lstlisting}
+
+\footnote{Разработал Ситнов МВ} 
+
+\section{Заключение}
+
+Алгоритм сортировки пузырьком является простым, но неэффективным для больших наборов данных, так как его временная сложность составляет \(O(n^2)\).
+
+\end{document}
