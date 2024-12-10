@@ -147,8 +147,10 @@ if __name__ == "__main__":
 \end{document}
 
 ```
-Файлы:
+### Файлы:
 [bubble_sort.nw](https://github.com/HopHey0/Practises/blob/main/bubble_sort.nw)
+[bubble_sort.pdf](https://github.com/HopHey0/Practises/blob/main/bubble_sort.pdf)
+[bubble_sort.py](https://github.com/HopHey0/Practises/blob/main/bubble_sort.py)
 
 
 ## Задача 4
