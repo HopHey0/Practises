@@ -10,7 +10,7 @@ cd <директория проекта>
 # 2. Установка зависимостей при запуске
 
 ```
-pip install tarfile
+pip install zipfile
 pip install argparse
 ```
 
