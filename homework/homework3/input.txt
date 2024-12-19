@@ -1,0 +1,19 @@
+:: Это однострочный комментарий
+
+var myArray := [1; 2; 3]
+
+var name := "Michael"
+
+var ten := 10
+
+var five := 5
+
+struct {a = "value", ab = "value", abc = "value"}
+
+var ts := ^(+ ten 5)      
+
+var tsub := ^(- ten 5)    
+
+var tmx := ^(max ten five) 
+
+var the_luck_you_got := ^(+ 111 666)
