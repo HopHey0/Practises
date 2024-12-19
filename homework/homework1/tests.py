@@ -20,14 +20,12 @@ def create_vfs_zip():
 
 class TestemulatorCommands(unittest.TestCase):
     
-    # Фикстура для вфс
     @classmethod
     def setUpClass(cls):
         cls.vfs_path = create_vfs_zip()
         cls.log_file = tempfile.NamedTemporaryFile(delete=False, mode='w', newline='', encoding='utf-8')
         cls.log_file.close()
 
-    # Фикстура для очистки временных файлов
     @classmethod
     def tearDownClass(cls):
         import os
