@@ -4,7 +4,6 @@ import json
 import yaml
 import sys
 
-# Импортируем функции из вашего скрипта
 from hw2 import parse_config, parse_dependencies, generate_plantuml
 
 class TestDependencyParser(unittest.TestCase):
@@ -24,9 +23,8 @@ class TestDependencyParser(unittest.TestCase):
         self.assertEqual(dependencies, expected_dependencies)
 
     @patch("builtins.open", new_callable=mock_open, read_data='{"dependencies": {"dep1": "^1.0.0"}}')
-    @patch("pathlib.Path.exists", side_effect=lambda: True)  # Все пути существуют
+    @patch("pathlib.Path.exists", side_effect=lambda: True) 
     def test_parse_dependencies_recursive(self, mock_exists, mock_file):
-        # Создаем дополнительные моки для зависимостей
         with patch("builtins.open", new_callable=mock_open, read_data='{"dependencies": {"dep2": "^1.0.0"}}'):
             dependencies = parse_dependencies("test-package", "./node_modules", max_depth=2)
             expected_dependencies = {
@@ -46,7 +44,6 @@ class TestDependencyParser(unittest.TestCase):
 "packageA" --> "packageB"
 """)
         
-        # Проверяем наличие всех строк в сгенерированном коде
         for line in expected_output.splitlines():
             self.assertIn(line.strip(), plantuml_code.strip())
 
