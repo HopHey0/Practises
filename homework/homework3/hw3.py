@@ -2,10 +2,9 @@ import sys
 import re
 
 def parse_single_line_comment(line):
-    # Преобразуем однострочные комментарии с '::' в формат TOML (начиная с '#')
     if '::' in line:
-        return "#" + line.strip().replace("::", "")  # Заменяем '::' на '#'
-    return None  # Остальные строки без изменений
+        return "#" + line.strip().replace("::", "") 
+    return None 
 
 def parse_array(line):
     match = re.match(r'var\s+(\w+)\s*:=\s*\[(.*?)\]', line)
@@ -26,7 +25,6 @@ def parse_dictionary(line):
                 value = key_value[1].strip()
                 dict_items[key] = value
         
-        # Формируем словарь в формате TOML
         return '[section]\n' + '\n'.join(f'  {k} = {v}' for k, v in dict_items.items())
     return None
 
@@ -41,39 +39,34 @@ def parse_constant_declaration(line):
 def evaluate_expression(expression, context):
     expression = expression.replace(":", "").strip()
     def replace_key(match):
-        key = match.group(0)  # Получаем найденный ключ
-        return str(context[key])  # Возвращаем значение из контекста
+        key = match.group(0)
+        return str(context[key]) 
     
-    # Заменяем ключи на значения
     pattern = r'\b(' + '|'.join(re.escape(key) for key in context.keys()) + r')\b'
     modified_expression = re.sub(pattern, replace_key, expression)
     
-    # Меняем местами операцию и число
     def swap_operation(match):
-        operation = match.group(1)  # Операция (+, -, max)
-        number = match.group(2)      # Число (10 или другое)
+        operation = match.group(1) 
+        number = match.group(2)     
         if operation == 'max':
-            return f"max({number}, "  # Начинаем с max( и добавляем запятую для следующего числа
-        return f"{number} {operation}"  # Меняем местами для других операций
+            return f"max({number}, " 
+        return f"{number} {operation}"  
 
-    # Регулярное выражение для поиска операций и чисел
     modified_expression = re.sub(r'(\+|-|max)\s+(\d+)', swap_operation, modified_expression)
 
-    # Извлекаем имя переменной и само выражение без символов ^ и других лишних частей
-    var_name = modified_expression.split('=')[0].strip()  # Извлекаем имя переменной
+
+    var_name = modified_expression.split('=')[0].strip() 
     expression_only = re.search(r'\((.*)\)', modified_expression)
     
     if expression_only:
-        expression_to_eval = expression_only.group(1).replace(' ', '')  # Убираем пробелы
+        expression_to_eval = expression_only.group(1).replace(' ', '') 
 
-        # Если есть max, добавляем закрывающую скобку
+
         if 'max' in expression_to_eval:
-            expression_to_eval += ')'  # Закрываем скобку для max
+            expression_to_eval += ')'  
 
-        # Вычисляем результат
         result = eval(expression_to_eval)
 
-        # Формируем итоговую строку с именем переменной
         final_result = f"{var_name} = {result}"
         return final_result.replace("var","").strip()
 
@@ -84,12 +77,12 @@ def convert_to_toml(input_file):
         lines = file.readlines()
 
     toml_output = []
-    context = {}  # Контекст для хранения значений переменных
+    context = {} 
     
     for line in lines:
-        # Если это комментарий (с '::'), то пропускаем его или преобразуем в TOML комментарий
+
         parsed_comment = parse_single_line_comment(line)
-        if parsed_comment is not None:  # Если комментарий, добавляем его
+        if parsed_comment is not None:
             toml_output.append(parsed_comment)
             continue
         
@@ -107,9 +100,7 @@ def convert_to_toml(input_file):
         if constant_decl_result:
             var_name, value_str = constant_decl_result.split('=', 1)
             var_name = var_name.strip()
-            value_str = value_str.strip().strip('"')  # Убираем кавычки из строковых значений
-            
-            # Пробуем преобразовать в число, если это возможно
+            value_str = value_str.strip().strip('"')  
             try:
                 value_int = int(value_str) if value_str.isdigit() else value_str
                 context[var_name] = value_int
@@ -119,9 +110,7 @@ def convert_to_toml(input_file):
                 toml_output.append(f'{var_name} = "{value_str}"')
             continue
         
-        # Обработка выражений с вычислениями
         eval_result_prefix = None
-        # Проверка на префиксные выражения с ^
         if '^' in line:
             eval_result_prefix = evaluate_expression(line, context)
             toml_output.append(eval_result_prefix)
