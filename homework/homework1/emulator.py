@@ -5,7 +5,6 @@ import time
 import zipfile
 from datetime import datetime
 
-# Парсинг аргументов командной строки
 def parse_args():
     parser = argparse.ArgumentParser(description="Эмулятор shell для UNIX-подобной ОС.")
     parser.add_argument("user", help="Имя пользователя для приглашения.")
@@ -13,7 +12,6 @@ def parse_args():
     parser.add_argument("log", help="Путь к лог-файлу (CSV).")
     return parser.parse_args()
 
-# Инициализация вфс
 def load_vfs(zip_path):
     try:
         with zipfile.ZipFile(zip_path, 'r') as zf:
@@ -25,11 +23,10 @@ def load_vfs(zip_path):
                     if part not in current or not isinstance(current[part], dict):
                         current[part] = {}
                     current = current[part]
-                # Определяем, файл это или папка
                 if file.endswith('/'):
-                    current[parts[-1]] = {}  # Папка
+                    current[parts[-1]] = {}  
                 else:
-                    current[parts[-1]] = zf.read(file)  # Файл
+                    current[parts[-1]] = zf.read(file)  
         return vfs
     except FileNotFoundError:
         print("Ошибка: указанный архив не найден.")
@@ -150,7 +147,6 @@ def shell(user, vfs, log_path):
             print("\nЗавершение работы.")
             break
 
-# Запуск программы
 if __name__ == "__main__":
     args = parse_args()
     vfs = load_vfs(args.vfs)
